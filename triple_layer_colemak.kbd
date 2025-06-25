@@ -1,0 +1,159 @@
+(defcfg
+;; You can set the value below to no if you only use the keys defined in defsrc.
+  process-unmapped-keys yes
+)
+
+(defsrc
+  q w e r t y u i o p
+  caps  a s d f g h j k l ;
+  z x c v b n m , . /
+         spc
+)
+
+(defvar
+  streak-count 3
+  streak-time 325
+  tap-timeout 200
+  hold-timeout 1000
+  chord-timeout 50
+)
+
+(deftemplate charmod (char mod)
+  (switch 
+    ((key-timing $streak-count less-than $streak-time)) $char break
+    () (tap-hold-release-timeout $tap-timeout $hold-timeout $char $mod $char) break
+  )
+)
+
+(defvirtualkeys
+  shift (multi (layer-switch main) lsft)
+  clear (multi (layer-switch main) (on-press release-virtualkey shift))
+)
+
+(defchords mtl $chord-timeout
+  (w  ) w
+  (  e) f
+  (w e) esc
+)
+
+(defchords mtr $chord-timeout
+  (y  ) y
+  (  ') '
+  (y ') bspc
+)
+
+(defchords mbl $chord-timeout
+  (x  ) c
+  (  c) d
+  (x c) tab
+)
+
+(defchords mbr $chord-timeout
+  (,  ) ,
+  (  .) (t! charmod . ralt)
+  (, .) ret
+)
+
+(deflayermap (main)
+  w (chord mtl w) 
+  e (chord mtl e) 
+  l i
+  x (chord mbl x)
+  c (chord mbl c)
+  s r
+  d s
+  f t
+  j n
+  k e
+  o (chord mtr y)
+  p (chord mtr ')
+  z x
+  h m
+  , (chord mbr ,)
+  . (chord mbr .)
+  / (t! charmod / rctl)
+  spc (t! charmod spc (multi (layer-switch extend) (on-release tap-virtualkey clear)))
+  caps (t! charmod esc (multi (layer-switch code) (on-release tap-virtualkey clear)))
+  r p
+  t b
+  y j
+  u l
+  i u
+  b z
+  n k
+  m h
+  ; o
+  \ z
+)
+
+(defalias
+  a-circ (fork (unicode â) (unicode Â) (lsft rsft))
+  e-circ (fork (unicode ê) (unicode Ê) (lsft rsft))
+  u-grav (fork (unicode ù) (unicode Ù) (lsft rsft))
+  i-circ (fork (unicode î) (unicode Î) (lsft rsft))
+  a-grav (fork (unicode à) (unicode À) (lsft rsft))
+  e-grav (fork (unicode è) (unicode È) (lsft rsft))
+  e-acute (fork (unicode é) (unicode É) (lsft rsft))
+  i-trema (fork (unicode ï) (unicode Ï) (lsft rsft))
+  o-circ (fork (unicode ô) (unicode Ô) (lsft rsft))
+  c-cedil (fork (unicode ç) (unicode Ç) (lsft rsft))
+  at-sign     (unicode @)
+  hash-sign   (unicode #)
+  dollar      (unicode $)
+  percent     (unicode %)
+  caret       (unicode ^)
+  ampersand   (unicode &)
+  asterisk    (unicode *)
+  euro        (unicode €)
+  lparen      (unicode "(")
+  rparen      (unicode ")")
+  minus       (unicode -)
+  underscore  (unicode _)
+  equal       (unicode =)
+  plus        (unicode +)
+  lbracket    (unicode [)
+  rbracket    (unicode ])
+  lbrace      (unicode {)
+  rbrace      (unicode })
+  backslash   (unicode \)
+  pipe        (unicode |)
+)
+
+(deflayermap (extend)
+  q @a-circ
+  u @e-circ
+  i @u-grav
+  o @i-circ
+  a @a-grav
+  j @e-grav
+  k @e-acute
+  l @i-trema
+  ; @o-circ
+  c @c-cedil
+)
+
+
+(deflayermap (code)
+  p f11
+  w @at-sign
+  s @hash-sign
+  d @dollar
+  f @percent
+  g @caret
+  h @ampersand
+  j @asterisk
+  k @euro
+  l @lparen
+  ; @rparen
+  u @minus
+  i @underscore
+  e @equal
+  r @plus
+  c @lbracket
+  v @rbracket
+  n @lbrace
+  m @rbrace
+  t @backslash
+  y @pipe
+)
+
