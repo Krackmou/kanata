@@ -61,7 +61,7 @@
   x (chord mbl x)
   c (chord mbl c)
   s r
-  d s
+  d s 
   f t
   j n
   k e
@@ -84,6 +84,7 @@
   m h
   ; o
   \ z
+  z x
 )
 
 (defalias
