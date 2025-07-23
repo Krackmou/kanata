@@ -72,7 +72,7 @@
   . (chord mbr .)
   / (t! charmod / rctl)
   spc (t! charmod spc (multi (layer-switch extend) (on-release tap-virtualkey clear)))
-  caps (t! charmod caps (multi (layer-switch code) (on-release tap-virtualkey clear)))
+  caps (t! charmod esc (multi (layer-switch code) (on-release tap-virtualkey clear)))
   r p
   t b
   y j
