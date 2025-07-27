@@ -7,7 +7,7 @@
   q w e r t y u i o p
   caps  a s d f g h j k l ;
   z x c v b n m , . /
-         spc
+      alt   spc
 )
 
 (defvar
@@ -84,6 +84,7 @@
   ; o
   \ z
   z x
+  alt esc
 )
 
 (defalias
