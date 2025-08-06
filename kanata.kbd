@@ -60,6 +60,11 @@
   (t m) @trademark
 )
 
+(defchords mai $chord-timeout
+  (a  ) a
+  (  o) o
+  (a o) @mail_address)
+
 (deflayermap (main)
   w (chord mtl w) 
   e (chord mtl e) 
@@ -87,10 +92,11 @@
   b z
   n k
   m h
-  ; o
+  ; (chord mai o)
   \ z
   z x
   alt esc
+  a (chord mai a)
 )
 
 (defalias
@@ -126,6 +132,7 @@
   pipe        (unicode |)
   twopoints   (unicode :)
   trademark (unicode ™)
+  mail_address (macro d u r a n d @. a l e x a n d r e @. @2 @0 @0 @7 @@ g m a i l @. c o m)
 )
 
 (deflayermap (extend)
@@ -164,5 +171,6 @@
   m @rbrace
   t @backslash
   y @pipe 
+  , @dollar
 )
 
