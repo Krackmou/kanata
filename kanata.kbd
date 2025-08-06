@@ -54,6 +54,12 @@
   (, .) ret
 )
 
+(defchords mtm $chord-timeout
+  (t  ) t
+  (  m) m
+  (t m) @trademark
+)
+
 (deflayermap (main)
   w (chord mtl w) 
   e (chord mtl e) 
@@ -62,12 +68,12 @@
   c (chord mbl c)
   s r
   d s 
-  f t
+  f (chord mtm t)
   j n
   k e
   o (chord mtr y)
   p (chord mtr ')
-  h m
+  h (chord mtm m)
   , (chord mbr ,)
   . (chord mbr .)
   / (t! charmod / rctl)
@@ -119,6 +125,7 @@
   backslash   (unicode \)
   pipe        (unicode |)
   twopoints   (unicode :)
+  trademark (unicode ™)
 )
 
 (deflayermap (extend)
