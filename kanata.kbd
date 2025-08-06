@@ -132,12 +132,10 @@
   pipe        (unicode |)
   twopoints   (unicode :)
   trademark (unicode ™)
-  mail_address (macro d u r a n d @. a l e x a n d r e @. @2 @0 @0 @7 @@ g m a i l @. c o m)
-  . .
-  2 2
-  0 0
-  7 7
-  @ @
+  two 2
+  zero 0
+  seven 7
+  mail_address (macro d u r a n d . a l e x a n d r e .  @two @zero @zero @seven @at-sign g m a i l . c o m)
 )
 
 (deflayermap (extend)
