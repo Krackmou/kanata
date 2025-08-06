@@ -42,12 +42,6 @@
   (y ') bspc
 )
 
-(defchords mbl $chord-timeout
-  (x  ) c
-  (  c) d
-  (x c) tab
-)
-
 (defchords mbr $chord-timeout
   (,  ) ,
   (  .) (t! charmod . ralt)
@@ -60,12 +54,18 @@
   (t m) @trademark
 )
 
+(defchords mao $chord-timeout
+  (a  ) a
+  (  o) o
+  (a o) @email-addr
+)
+
 (deflayermap (main)
   w (chord mtl w) 
   e (chord mtl e) 
   l i
-  x (chord mbl x)
-  c (chord mbl c)
+  x c
+  c d (chord mdu d)
   s r
   d s 
   f (chord mtm t)
@@ -83,14 +83,15 @@
   t b
   y j
   u l
-  i u
+  i u (chord mdu u)
   b z
   n k
   m h
-  ; o
+  ; (chord mao o)
   \ z
   z x
   alt esc
+  a (chord mao a)
 )
 
 (defalias
@@ -126,6 +127,8 @@
   pipe        (unicode |)
   twopoints   (unicode :)
   trademark (unicode ™)
+  du-circ (fork (unicode dû) (unicode DÛ) (lsft rsft))
+  email-addr (unicode durand.alexandre.2007@gmail.com)
 )
 
 (deflayermap (extend)
