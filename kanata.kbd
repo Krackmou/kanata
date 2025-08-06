@@ -42,10 +42,10 @@
   (y ') bspc
 )
 
-(defchords mbl $chord-timeout
-  (x  ) c
-  (  c) d
-  (x c) tab
+(defchords du $chord-timeout
+  (d  ) d
+  (  u) u
+  (d u) @du
 )
 
 (defchords mbr $chord-timeout
@@ -69,8 +69,8 @@
   w (chord mtl w) 
   e (chord mtl e) 
   l i
-  x (chord mbl x)
-  c (chord mbl c)
+  x c
+  c (chord du d)
   s r
   d s 
   f (chord mtm t)
@@ -88,7 +88,7 @@
   t b
   y j
   u l
-  i u
+  i (chord du u)
   b z
   n k
   m h
@@ -131,11 +131,12 @@
   backslash   (unicode \)
   pipe        (unicode |)
   twopoints   (unicode :)
-  trademark (unicode ™)
+  trademark (unicode ™) 
   two 2
   zero 0
   seven 7
   mail_address (macro d u r a n d . a l e x a n d r e .  @two @zero @zero @seven @at-sign g m a i l . c o m)
+  du (macro d (unicode û))
 )
 
 (deflayermap (extend)
