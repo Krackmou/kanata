@@ -30,46 +30,6 @@
   clear (multi (layer-switch main) (on-press release-virtualkey shift))
 )
 
-(defchords mtl $chord-timeout
-  (w  ) w
-  (  e) f
-  (w e) esc
-)
-
-(defchords mtr $chord-timeout
-  (y  ) y
-  (  ') '
-  (y ') bspc
-)
-
-(defchords du $chord-timeout
-  (d  ) d
-  (  u) u
-  (d u) @du
-)
-
-(defchords mbr $chord-timeout
-  (,  ) ,
-  (  .) (t! charmod . ralt)
-  (, .) ret
-)
-
-(defchords mtm $chord-timeout
-  (t  ) t
-  (  m) m
-  (t m) @trademark
-)
-
-(defchords mai $chord-timeout
-  (a  ) a
-  (  o) o
-  (a o) @mail_address)
-
-(defchords ptr $chord-timeout
-  (p  ) p
-  (  b) b
-  (p b) @peut-être)
-
 (deflayermap (main)
   w (chord mtl w) 
   e (chord mtl e) 
@@ -107,7 +67,7 @@
 (defalias
   a-circ (fork (unicode â) (unicode Â) (lsft rsft))
   e-circ (fork (unicode ê) (unicode Ê) (lsft rsft))
-  u-grav (fork (unicode ù) (unicode Ù) (lsft rsft))
+  u-circ (fork (unicode û) (unicode Û) (lsft rsft))
   i-circ (fork (unicode î) (unicode Î) (lsft rsft))
   a-grav (fork (unicode à) (unicode À) (lsft rsft))
   e-grav (fork (unicode è) (unicode È) (lsft rsft))
@@ -115,6 +75,7 @@
   i-trema (fork (unicode ï) (unicode Ï) (lsft rsft))
   o-circ (fork (unicode ô) (unicode Ô) (lsft rsft))
   c-cedil (fork (unicode ç) (unicode Ç) (lsft rsft))
+  simple-e    (unicode ê)
   at-sign     (unicode @)
   hash-sign   (unicode #)
   dollar      (unicode $)
@@ -141,14 +102,57 @@
   zero 0
   seven 7
   mail_address (macro d u r a n d . a l e x a n d r e .  @two @zero @zero @seven @at-sign g m a i l . c o m)
-  peut-être (macro p e u t @minus @e-circ t r e)
+  peut-être (macro p e u t  @minus @simple-e 10 t r e)
   du (macro d (unicode û))
+  où (macro o (unicode ù))
 )
+
+(defchords mtl $chord-timeout
+  (w  ) w
+  (  e) f
+  (w e) esc
+)
+
+(defchords mtr $chord-timeout
+  (y  ) y
+  (  ') '
+  (y ') @où
+)
+
+(defchords du $chord-timeout
+  (d  ) d
+  (  u) u
+  (d u) @du
+)
+
+(defchords mbr $chord-timeout
+  (,  ) ,
+  (  .) (t! charmod . ralt)
+  (, .) ret
+)
+
+(defchords mtm $chord-timeout
+  (t  ) t
+  (  m) m
+  (t m) @trademark
+)
+
+(defchords mai $chord-timeout
+  (a  ) a
+  (  o) o
+  (a o) @mail_address
+  )
+
+(defchords ptr $chord-timeout
+  (p  ) p
+  (  b) b
+  (p b) @peut-être
+  )
 
 (deflayermap (extend)
   q @a-circ
   u @e-circ
-  i @u-grav
+  i @u-circ
   o @i-circ
   a @a-grav
   j @e-grav
