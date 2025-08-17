@@ -65,6 +65,11 @@
   (  o) o
   (a o) @mail_address)
 
+(defchords ptr $chord-timeout
+  (p  ) p
+  (  b) b
+  (p b) @peut-être)
+
 (deflayermap (main)
   w (chord mtl w) 
   e (chord mtl e) 
@@ -84,8 +89,8 @@
   / (t! charmod / rctl)
   spc (t! charmod spc (multi (layer-switch extend) (on-release tap-virtualkey clear)))
   caps (layer-toggle code)
-  r p
-  t b
+  r (chord ptr p)
+  t (chord ptr b)
   y j
   u l
   i (chord du u)
@@ -136,6 +141,7 @@
   zero 0
   seven 7
   mail_address (macro d u r a n d . a l e x a n d r e .  @two @zero @zero @seven @at-sign g m a i l . c o m)
+  peut-être (macro p e u t @minus @e-circ t r e)
   du (macro d (unicode û))
 )
 
