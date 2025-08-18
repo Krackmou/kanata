@@ -97,7 +97,8 @@
   backslash   (unicode \)
   pipe        (unicode |)
   twopoints   (unicode :)
-  trademark (unicode ™) 
+  trademark (unicode ™)
+  point-virgule (unicode ;)
   two 2
   zero 0
   seven 7
@@ -185,6 +186,7 @@
   m @rbrace
   t @backslash
   y @pipe 
-  , @dollar
+  . @dollar
+  , @point-virgule
 )
 
