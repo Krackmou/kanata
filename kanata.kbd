@@ -1,13 +1,44 @@
+#|
+Source(qwerty):
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc 
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            ralt rmet rctl
+
+Main(custom colemak-dh):
+  grv         1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab         q    w    f    p    b    j    l    u    y    '    [    ]    z
+  Code-toggle a    r    s    t    g    m    n    e    i    o    '    ret
+  lsft        x    c    d    v    z    k    h    ,    .    /    rsft
+  lctl lmet esc        Accent-toggle            ralt rmet rctl
+
+Accent:
+  grv         1    2    3    4    5    6    7    8    9    0    -    =    bspc 
+  tab         â    w    f    p    b    j    ê    û    î    p    [    ]    z
+  Code-toggle à    r    s    t    g    m    è    é    ï    ô    '    ret
+  lsft        x    c    ç    v    z    k    h    ,    .    /    rsft                                oui le ç est sur le d je sais...
+  lctl lmet esc        Accent-toggle            ralt rmet rctl
+
+Code:
+  grv         1    2    3    4    5    6    7    8    9    0    -    =    bspc 
+  tab         %    *    =    +    \    |    /    _    !    f11   [    ]  z
+  Code-toggle a    ?    @    #    !    -    :    ;    i    (    )    ret
+  lsft        x    c    ^    [    ]    &    {    }    €    $    rsft
+  lctl lmet esc        Accent-toggle            ralt rmet rctl
+|#
+
 (defcfg
 ;; You can set the value below to no if you only use the keys defined in defsrc.
   process-unmapped-keys yes
 )
 
 (defsrc
-  q w e r t y u i o p
-  caps  a s d f g h j k l ;
-  z x c v b n m , . /
-      alt   spc
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc 
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            ralt rmet rctl
 )
 
 (defvar
@@ -42,7 +73,7 @@
   j n
   k e
   o (chord mtr y)
-  p (chord mtr ')
+  p (chord mtr @e-acute)
   h (chord mtm m)
   , (chord mbr ,)
   . (chord mbr .)
@@ -57,11 +88,11 @@
   b z
   n k
   m h
-  ; (chord mai o)
+  ; o
   \ z
   z x
   alt esc
-  a (chord mai a)
+  a a
 )
 
 (defalias
@@ -97,6 +128,8 @@
   backslash   (unicode \)
   pipe        (unicode |)
   twopoints   (unicode :)
+  apostrophe_inversée    (unicode `)
+  tilde       (unicode ~)
   trademark (unicode ™)
   point-virgule (unicode ;)
   two 2
@@ -104,7 +137,7 @@
   seven 7
   mail_address (macro d u r a n d . a l e x a n d r e .  @two @zero @zero @seven @at-sign g m a i l . c o m)
   peut-être (macro p e u t  @minus @simple-e 10 t r e)
-  du (macro d (unicode û))
+  dû (macro d (unicode û))
   où (macro o (unicode ù))
 )
 
@@ -116,14 +149,14 @@
 
 (defchords mtr $chord-timeout
   (y  ) y
-  (  ') '
-  (y ') @où
+  (  @e-acute) @e-acute
+  (y @e-acute) @où
 )
 
 (defchords du $chord-timeout
   (d  ) d
   (  u) u
-  (d u) @du
+  (d u) @dû
 )
 
 (defchords mbr $chord-timeout
@@ -138,12 +171,6 @@
   (t m) @trademark
 )
 
-(defchords mai $chord-timeout
-  (a  ) a
-  (  o) o
-  (a o) @mail_address
-  )
-
 (defchords ptr $chord-timeout
   (p  ) p
   (  b) b
@@ -157,36 +184,59 @@
   o @i-circ
   a @a-grav
   j @e-grav
-  k @e-acute
   l @i-trema
   ; @o-circ
   c @c-cedil
 )
-
-
+  
 (deflayermap (code)
-  p f11
-  w @asterisk
-  s @percent
-  d @at-sign
-  f @hash-sign
-  g @caret
-  h @ampersand
-  j @twopoints
-  k @euro 
-  l @lparen
-  ; @rparen
-  u @minus
-  i @underscore
-  e @equal
-  r @plus
-  c @lbracket
-  v @rbracket
-  n @lbrace
-  m @rbrace
-  t @backslash
-  y @pipe 
-  . @dollar
-  , @point-virgule
+  q   @percent
+  w   @asterisk
+  e   @equal
+  r   @plus
+  t   @backslash
+  y   @pipe
+  u   /
+  i   !                 
+  o   ?
+  p   f11
+  a   <
+  s   >
+  d   @at-sign
+  f   @hash-sign
+  g   @underscore      
+  h   @minus
+  j   @twopoints
+  k   @point-virgule
+  l   @lparen
+  ;   @rparen
+  '   @apostrophe_inversée
+  z   @mail_address
+  x   @tilde
+  c   @caret
+  v   @rbracket
+  b   @lbracket 
+  n   @ampersand
+  m   @rbrace
+  ,   @lbrace
+  .   @euro
+  /   @dollar
+  spc spc
 )
 
+#| 
+Config post 24/08/2025:
+
+        %            * = + \ | / ! ? f11
+  caps  <            > @ # _ - : ; ( ) `
+        mail_address ~ ^ [ ] & { } € $
+        alt               spc 
+
+Config pré 24/08/2025:
+
+        q * = + \ | - _ y f11
+  caps  a % @ # ^ & : € ( ) '  
+        x c [ ] z { } ; $ /
+        alt   spc
+
+|#
