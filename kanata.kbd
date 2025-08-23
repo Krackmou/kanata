@@ -132,6 +132,10 @@ Code:
   tilde       (unicode ~)
   trademark (unicode ™)
   point-virgule (unicode ;)
+  exclamation (unicode !)
+  interrogation (unicode ?)
+  smaller_than (unicode <)
+  bigger_than (unicode >)
   two 2
   zero 0
   seven 7
@@ -197,11 +201,11 @@ Code:
   t   @backslash
   y   @pipe
   u   /
-  i   !                 
-  o   ?
+  i   @exclamation
+  o   @interrogation
   p   f11
-  a   <
-  s   >
+  a   @smaller_than
+  s   @bigger_than
   d   @at-sign
   f   @hash-sign
   g   @underscore      
@@ -214,11 +218,11 @@ Code:
   z   @mail_address
   x   @tilde
   c   @caret
-  v   @rbracket
-  b   @lbracket 
+  v   @lbracket
+  b   @rbracket 
   n   @ampersand
-  m   @rbrace
-  ,   @lbrace
+  m   @lbrace
+  ,   @rbrace
   .   @euro
   /   @dollar
   spc spc
@@ -227,9 +231,9 @@ Code:
 #| 
 Config post 24/08/2025:
 
-        %            * = + \ | / ! ? f11
-  caps  <            > @ # _ - : ; ( ) `
-        mail_address ~ ^ [ ] & { } € $
+        %            * = + \ | / ! ? f11  
+  caps  <            > @ # _ - : ; ( ) `  
+        mail_address ~ ^ [ ] & { } € $    
         alt               spc 
 
 Config pré 24/08/2025:
