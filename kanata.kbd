@@ -31,6 +31,7 @@ Code:
 (defcfg
 ;; You can set the value below to no if you only use the keys defined in defsrc.
   process-unmapped-keys yes
+  concurrent-tap-hold yes
 )
 
 (defsrc
@@ -62,29 +63,29 @@ Code:
 )
 
 (deflayermap (main)
-  w (chord mtl w) 
-  e (chord mtl e) 
+  w w
+  e f
   l i
   x c
-  c (chord du d)
+  c d
   s r
   d s 
-  f (chord mtm t)
+  f t
   j n
   k e
-  o (chord mtr y)
-  p (chord mtr @e-acute)
-  h (chord mtm m)
-  , (chord mbr ,)
-  . (chord mbr .)
+  o y
+  p @e-acute
+  h m
+  , ,
+  . .
   / (t! charmod / rctl)
   spc (t! charmod spc (multi (layer-switch extend) (on-release tap-virtualkey clear)))
   caps (layer-toggle code)
-  r (chord ptr p)
-  t (chord ptr b)
+  r p
+  t b
   y j
   u l
-  i (chord du u)
+  i u
   b z
   n k
   m h
@@ -145,41 +146,14 @@ Code:
   où (macro o (unicode ù))
 )
 
-(defchords mtl $chord-timeout
-  (w  ) w
-  (  e) f
-  (w e) esc
+(defchordsv2
+  (w e) esc          100 all-released  ()
+  (o p) @où          100 all-released  ()
+  (c u) @dû          100 all-released  ()
+  (m ,) ret          100 all-released  ()
+  (f h) @trademark   100 all-released  ()
+  (r t) @peut-être   100 all-released  ()
 )
-
-(defchords mtr $chord-timeout
-  (y  ) y
-  (  @e-acute) @e-acute
-  (y @e-acute) @où
-)
-
-(defchords du $chord-timeout
-  (d  ) d
-  (  u) u
-  (d u) @dû
-)
-
-(defchords mbr $chord-timeout
-  (,  ) ,
-  (  .) (t! charmod . ralt)
-  (, .) ret
-)
-
-(defchords mtm $chord-timeout
-  (t  ) t
-  (  m) m
-  (t m) @trademark
-)
-
-(defchords ptr $chord-timeout
-  (p  ) p
-  (  b) b
-  (p b) @peut-être
-  )
 
 (deflayermap (extend)
   q @a-circ
