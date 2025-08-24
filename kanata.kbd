@@ -94,6 +94,8 @@ Code:
   z x
   alt esc
   a a
+  bspc XX
+  ret XX
 )
 
 (defalias
@@ -144,6 +146,7 @@ Code:
   peut-être (macro p e u t  @minus @simple-e 10 t r e)
   dû (macro d (unicode û))
   où (macro o (unicode ù))
+  ça (macro (unicode ç) a)
 )
 
 (defchordsv2
@@ -153,6 +156,8 @@ Code:
   (m ,) ret          100 all-released  ()
   (f h) @trademark   100 all-released  ()
   (r t) @peut-être   100 all-released  ()
+  (c a) @ça          100 all-released  () 
+  (e r) bspc         100 all-released  ()
 )
 
 (deflayermap (extend)
