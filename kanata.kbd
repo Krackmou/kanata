@@ -158,6 +158,7 @@ Code:
   (r t) @peut-être   100 all-released  ()
   (c a) @ça          100 all-released  () 
   (e r) bspc         100 all-released  ()
+  (e r z) C-bspc     100 all-released  ()
 )
 
 (deflayermap (extend)
