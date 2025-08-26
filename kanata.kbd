@@ -155,7 +155,6 @@ Code:
   (m ,) @e-grav      100 all-released  ()
   (f h) @trademark   100 all-released  ()
   (r t) @peut-être   100 all-released  ()
-  (c a) @ça          100 all-released  ()
   (e r) bspc         100 all-released  ()
   (e r w) C-bspc     100 all-released  ()
 )
