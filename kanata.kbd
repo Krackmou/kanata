@@ -196,9 +196,9 @@ Code:
   '   @apostrophe_inversée
   z   @mail_address
   x   @tilde
-  c   @caret
-  v   @lbracket
-  b   @rbracket 
+  c   @lbracket
+  v   @rbracket
+  b   @caret 
   n   @ampersand
   m   @lbrace
   ,   @rbrace
