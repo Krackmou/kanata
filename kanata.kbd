@@ -1,45 +1,31 @@
 #|
-Source(qwerty):
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc 
-  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
-  caps a    s    d    f    g    h    j    k    l    ;    '    ret
-  lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl lmet lalt           spc            ralt rmet rctl
+Source(azerty):
+  grv  &    é    "    '    (    -    è    _    ç    à    )    =    bspc
+  tab  a    z    e    r    t    y    u    i    o    p    ^    $    ret
+  caps q    s    d    f    g    h    j    k    l    m    ù    * ret
+  lsft <    w    x    c    v    b    n    ,    ;    :    !    rsft
+  lctl lmet lalt         spc              ralt rmet rctl
 
 Main(custom colemak-dh):
-  grv         1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab         q    w    f    p    b    j    l    u    y    '    [    ]    z
-  Code-toggle a    r    s    t    g    m    n    e    i    o    '    ret
-  lsft        x    c    d    v    z    k    h    ,    .    /    rsft
-  lctl lmet esc        Accent-toggle            ralt rmet rctl
-
-Accent:
-  grv         1    2    3    4    5    6    7    8    9    0    -    =    bspc 
-  tab         â    w    f    p    b    j    ê    û    î    p    [    ]    z
-  Code-toggle à    r    s    t    g    m    è    é    ï    ô    '    ret
-  lsft        x    c    ç    v    z    k    h    ,    .    /    rsft                                oui le ç est sur le d je sais...
-  lctl lmet esc        Accent-toggle            ralt rmet rctl
-
-Code:
-  grv         1    2    3    4    5    6    7    8    9    0    -    =    bspc 
-  tab         %    *    =    +    \    |    /    _    !    f11   [    ]  z
-  Code-toggle a    ?    @    #    !    -    :    ;    i    (    )    ret
-  lsft        x    c    ^    [    ]    &    {    }    €    $    rsft
-  lctl lmet esc        Accent-toggle            ralt rmet rctl
+  grv         1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab         q    w    f    p    b    j    l    u    y    '    [    ]    z
+  Code-toggle a    r    s    t    g    m    n    e    i    o    '    ret
+  lsft        x    c    d    v    z    k    h    ,    .    /    rsft
+  lctl lmet esc        Accent-toggle            ralt rmet rctl
 |#
 
 (defcfg
-;; You can set the value below to no if you only use the keys defined in defsrc.
   process-unmapped-keys yes
   concurrent-tap-hold yes
 )
 
 (defsrc
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc 
-  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
-  caps a    s    d    f    g    h    j    k    l    ;    '    ret
-  lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl lmet lalt           spc            ralt rmet rctl
+  ;; Les noms des touches correspondent maintenant à une disposition AZERTY
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  a    z    e    r    t    y    u    i    o    p    [    ]    \
+  caps q    s    d    f    g    h    j    k    l    m    '    ret
+  lsft w    x    c    v    b    n    ,    ;    .    /    rsft ; Note: les touches physiques sont les mêmes
+  lctl lmet lalt         spc              ralt rmet rctl
 )
 
 (defvar
@@ -51,7 +37,7 @@ Code:
 )
 
 (deftemplate charmod (char mod)
-  (switch 
+  (switch
     ((key-timing $streak-count less-than $streak-time)) $char break
     () (tap-hold-release-timeout $tap-timeout $hold-timeout $char $mod $char) break
   )
@@ -62,38 +48,54 @@ Code:
   clear (multi (layer-switch main) (on-press release-virtualkey shift))
 )
 
+;; ## MODIFICATION PRINCIPALE ##
+;; Ce bloc mappe maintenant directement les touches AZERTY (du defsrc)
+;; vers la disposition Colemak-DH que vous souhaitez.
 (deflayermap (main)
-  w w
+  ;; AZERTY Source -> Colemak-DH Target
+
+  ;; Ligne du haut (basée sur la position physique)
+  a q         ; La touche 'a' (AZERTY) donne 'q' (Colemak)
+  z w         ; La touche 'z' (AZERTY) donne 'w' (Colemak)
   e f
-  l i
-  x c
-  c d
-  s r
-  d s 
-  f t
-  j n
-  k e
-  o y
-  p @e-acute
-  h m
-  , ,
-  . .
-  / (t! charmod / rctl)
-  spc (t! charmod spc (multi (layer-switch extend) (on-release tap-virtualkey clear)))
-  caps (layer-toggle code)
   r p
   t b
   y j
   u l
   i u
+  o y
+  p @e-acute  ; Unicode, inchangé
+
+  ;; Ligne du milieu (Home Row)
+  q a         ; La touche 'q' (AZERTY) donne 'a' (Colemak)
+  s r
+  d s
+  f t
+  g g
+  h m
+  j n
+  k e
+  l i
+  m o         ; La touche 'm' (AZERTY) donne 'o' (Colemak)
+  ' @e-acute  ; Mapping pour votre touche apostrophe vers un 'é' comme dans l'original
+
+  ;; Ligne du bas
+  w x         ; La touche 'w' (AZERTY) donne 'x' (Colemak)
+  x c
+  c d
+  v v
   b z
   n k
-  m h
-  ; o
-  \ z
-  z x
+  , h         ; La touche ',' (AZERTY) donne 'h' (Colemak)
+  ; ,         ; La touche ';' (AZERTY) donne ',' (Colemak)
+  . .         ; La touche '.' (AZERTY) donne '.' (Colemak)
+  / /         ; La touche '/' (AZERTY) donne '/' (Colemak)
+  \ z         ; Vous aviez un 'z' sur la touche '\'
+
+  ;; Touches spéciales
+  spc (t! charmod spc (multi (layer-switch extend) (on-release tap-virtualkey clear)))
+  caps (layer-toggle code)
   alt esc
-  a a
 )
 
 (defalias
@@ -147,33 +149,35 @@ Code:
   ça (macro (unicode ç) a)
 )
 
+;; Les accords ont été mis à jour pour utiliser les noms de touches AZERTY du defsrc
 (defchordsv2
-  (w e) esc          100 all-released  ()
-  (o p) @où          100 all-released  ()
-  (c u) @dû          100 all-released  ()
-  (. /) ret          100 all-released  ()
-  (m ,) @e-grav      100 all-released  ()
-  (f h) @trademark   100 all-released  ()
-  (r t) @peut-être   100 all-released  ()
-  (e r) bspc         100 all-released  ()
-  (e r w) C-bspc     100 all-released  ()
+  (z e) esc         100 all-released  ()
+  (o p) @où         100 all-released  ()
+  (c u) @dû         100 all-released  ()
+  (. /) ret         100 all-released  ()
+  (' ,) @e-grav     100 all-released  () ; Changé de (m ,) à (',') pour AZERTY
+  (f h) @trademark  100 all-released  ()
+  (r t) @peut-être  100 all-released  ()
+  (e r) bspc        100 all-released  ()
+  (e r z) C-bspc    100 all-released  ()
 )
 
+;; Les couches ont été mises à jour pour utiliser les noms de touches AZERTY du defsrc
 (deflayermap (extend)
-  q @a-circ
+  a @a-circ
   u @e-circ
   i @u-circ
   o @i-circ
-  a @a-grav
+  q @a-grav
   j @e-grav
   l @i-trema
-  ; @o-circ
+  m @o-circ
   c @c-cedil
 )
-  
+
 (deflayermap (code)
-  q   @percent
-  w   @asterisk
+  a   @percent
+  z   @asterisk
   e   @equal
   r   @plus
   t   @backslash
@@ -182,43 +186,27 @@ Code:
   i   @exclamation
   o   @interrogation
   p   f11
-  a   @smaller_than
+  q   @smaller_than
   s   @bigger_than
   d   @at-sign
   f   @hash-sign
-  g   @underscore      
+  g   @underscore
   h   @minus
   j   @twopoints
   k   @point-virgule
   l   @lparen
-  ;   @rparen
+  m   @rparen
   '   @apostrophe_inversée
-  z   @mail_address
+  w   @mail_address
   x   @tilde
   c   @lbracket
   v   @rbracket
-  b   @caret 
+  b   @caret
   n   @ampersand
-  m   @lbrace
-  ,   @rbrace
+  ,   @lbrace
+  ;   @rbrace
   .   @euro
   /   @dollar
   spc spc
 )
 
-#| 
-Config post 24/08/2025:
-
-        %            * = + \ | / ! ? f11  
-  caps  <            > @ # _ - : ; ( ) `  
-        mail_address ~ ^ [ ] & { } € $    
-        alt               spc 
-
-Config pré 24/08/2025:
-
-        q * = + \ | - _ y f11
-  caps  a % @ # ^ & : € ( ) '  
-        x c [ ] z { } ; $ /
-        alt   spc
-
-|#
