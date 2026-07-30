@@ -1,0 +1,169 @@
+#|
+Source physique (Positions matérielles Qwerty) :
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc 
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            ralt rmet rctl
+
+Couche Code (Active quand Caps Lock est maintenu) :
+        %            *    =    +    \    |    /    _    !    f11  
+  caps  <            >    @    #    _    -    :    ;    (    )    `  
+        mail_address ~    ^    [    ]    &    {    }    €    $    
+
+Couche Accents (Active quand AltGr / RAlt est maintenu) :
+  q -> â    u -> ê    i -> û    o -> î    p -> é
+  a -> à    j -> è    l -> ï    ; -> ô    c -> ç
+|#
+
+(defcfg
+  process-unmapped-keys yes
+  concurrent-tap-hold yes
+)
+
+(defsrc
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc 
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            ralt rmet rctl
+)
+
+;; Couche principale : Gestion des interrupteurs vers tes sous-couches
+(deflayermap (main)
+  caps (layer-toggle code)
+  ralt (layer-toggle extend)
+  p @e-acute     ;; Put é / É directly on physical QWERTY p key (no AltGr needed)
+)
+
+(defalias
+  ;; System-wide Compose key macros (rctl is Compose key in XKB)
+  ;; Works in 100% of apps including Anki (QtWebEngine), GTK, browsers, terminals!
+
+  ;; é / É
+  é-macro (macro rctl ' k)
+  É-macro (macro rctl ' S-k)
+  e-acute (fork @é-macro @É-macro (lsft rsft))
+
+  ;; â / Â
+  â-macro (macro rctl S-6 a)
+  Â-macro (macro rctl S-6 S-a)
+  a-circ (fork (multi (release-key ralt) @â-macro) (multi (release-key ralt) @Â-macro) (lsft rsft))
+
+  ;; ê / Ê
+  ê-macro (macro rctl S-6 k)        ;; k is e in Colemak-DH
+  Ê-macro (macro rctl S-6 S-k)
+  e-circ (fork (multi (release-key ralt) @ê-macro) (multi (release-key ralt) @Ê-macro) (lsft rsft))
+
+  ;; û / Û
+  û-macro (macro rctl S-6 i)        ;; i is u in Colemak-DH
+  Û-macro (macro rctl S-6 S-i)
+  u-circ (fork (multi (release-key ralt) @û-macro) (multi (release-key ralt) @Û-macro) (lsft rsft))
+
+  ;; î / Î
+  î-macro (macro rctl S-6 l)        ;; l is i in Colemak-DH
+  Î-macro (macro rctl S-6 S-l)
+  i-circ (fork (multi (release-key ralt) @î-macro) (multi (release-key ralt) @Î-macro) (lsft rsft))
+
+  ;; à / À
+  à-macro (macro rctl grv a)
+  À-macro (macro rctl grv S-a)
+  a-grav (fork (multi (release-key ralt) @à-macro) (multi (release-key ralt) @À-macro) (lsft rsft))
+
+  ;; è / È
+  è-macro (macro rctl grv k)        ;; k is e in Colemak-DH
+  È-macro (macro rctl grv S-k)
+  e-grav (fork (multi (release-key ralt) @è-macro) (multi (release-key ralt) @È-macro) (lsft rsft))
+
+  ;; ï / Ï
+  ï-macro (macro rctl S-' l)        ;; l is i in Colemak-DH
+  Ï-macro (macro rctl S-' S-l)
+  i-trema (fork (multi (release-key ralt) @ï-macro) (multi (release-key ralt) @Ï-macro) (lsft rsft))
+
+  ;; ô / Ô
+  ô-macro (macro rctl S-6 ;)        ;; ; is o in Colemak-DH
+  Ô-macro (macro rctl S-6 S-;)
+  o-circ (fork (multi (release-key ralt) @ô-macro) (multi (release-key ralt) @Ô-macro) (lsft rsft))
+
+  ;; ç / Ç
+  ç-macro (macro rctl , x)          ;; x is c in Colemak-DH
+  Ç-macro (macro rctl , S-x)
+  c-cedil (fork (multi (release-key ralt) @ç-macro) (multi (release-key ralt) @Ç-macro) (lsft rsft))
+
+  ;; ö / Ö
+  ö-macro (macro rctl S-' ;)        ;; ; is o in Colemak-DH
+  Ö-macro (macro rctl S-' S-;)
+  o-trema (fork (multi (release-key ralt) @ö-macro) (multi (release-key ralt) @Ö-macro) (lsft rsft))
+
+  ;; Macros pour les doubles touches (chords)
+  où (macro ; rctl grv i)
+  dû (macro c rctl S-6 i)
+  trademark (macro rctl x =)
+  
+  peut-etre-low (macro r k i f - rctl S-6 k 10 f s k)
+  peut-etre-cap (multi (release-key lsft) (release-key rsft) (macro S-r 10 k i f - rctl S-6 k 10 f s k))
+  peut-être (fork @peut-etre-low @peut-etre-cap (lsft rsft))
+
+  ;; Euro macro
+  euro-macro (macro rctl x =)
+  mail_address (macro c i s a j c . a u k z a j c s k . kp2 kp0 kp0 kp7 S-2 g h a l u . x ; h)
+)
+
+;; Doubles touches (chords) - Operating at defsrc (physical key) level
+(defchordsv2
+  (o p) @où          100 all-released  ()
+  (c u) @dû          100 all-released  ()
+  (f h) @trademark   100 all-released  ()
+  (r t) @peut-être   100 all-released  ()
+)
+
+;; Ta couche d'accents (AltGr maintenu) - Map matching Colemak-DH letter positions
+(deflayermap (extend)
+  q @a-circ      ;; Colemak q (physical q) -> â
+  i @u-circ      ;; Colemak u (physical i) -> û
+  u @e-circ      ;; Colemak l (physical u) -> ê
+  l @i-circ      ;; Colemak i (physical l) -> î
+  ; @o-circ      ;; Colemak o (physical ;) -> ô
+  a @a-grav      ;; Colemak a (physical a) -> à
+  j @e-grav      ;; Colemak n (physical j) -> è
+  o @i-trema     ;; Colemak y (physical o) -> ï
+  p @o-trema     ;; Colemak é (physical p) -> ö
+  c @c-cedil     ;; Colemak d (physical c) -> ç
+  x @c-cedil     ;; Colemak c (physical x) -> ç (Disponible sur d ET c)
+)
+
+;; Ta couche de symboles (Caps Lock maintenu)
+(deflayermap (code)
+  q   S-5
+  w   S-8
+  e   =
+  r   S-=
+  t   bksl
+  y   S-bksl
+  u   /
+  i   S-1
+  o   S-/
+  p   M-p  ;; Sends Super + ; (triggering Hyprland's fullscreen toggle)
+  a   S-,
+  s   S-.
+  d   S-2
+  f   S-3
+  g   S--
+  h   -
+  j   S-p
+  k   p
+  l   S-9
+  ;   S-0
+  '   grv
+  z   @mail_address
+  x   S-grv
+  c   [
+  v   ]
+  b   S-6
+  n   S-7
+  m   S-[
+  ,   S-]
+  .   (multi (release-key ralt) @euro-macro)
+  /   S-4
+  spc spc
+)
